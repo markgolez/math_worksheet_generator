@@ -1,3 +1,4 @@
+from topicsVariable import *
 from topicScript import linear
 from topicScript import quadratic
 from topicScript import polynomial as pol
@@ -17,20 +18,20 @@ from topicScript import trigo
 def main(details):
     for each in details:
         print(each)
-        if each[0] == 'Linear':
+        if each[0] == Linear:
             questions, anskey = linear.main(each[1], each[3])
-        elif each[0] == 'Quadratic':
+        elif each[0] == Quadratic:
             questions, anskey = quadratic.main(each[1], each[3])
-        elif each[0] == 'Polynomial':
-            givenQuestionAns = pol.main(each[1], each[3])
-        elif each[0] == 'Exponential':
+        elif each[0] == Polynomial:
+            equations, anskey = pol.main(each[1], each[3])
+        elif each[0] == Exponential:
             questions, anskey = expLog.main(each[1], each[3])
-        elif each[0] == 'Conic':
+        elif each[0] == Conic:
             questions, anskey = conics.main(each[1], each[3])
-        elif each[0] == 'Trigonometry':
+        elif each[0] == Trigonometry:
             questions, anskey = trigo.main(each[1], each[3])
 
-        each.append(givenQuestionAns)
+        each.append([equations, anskey])
 
     return details
 

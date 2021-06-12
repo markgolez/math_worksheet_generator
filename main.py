@@ -14,7 +14,7 @@ import template as generateWorksheet
 details = userInput.main()
 # generate equations
 details = generateQuestions.main(details)
-print(details)
+# print(details)
 '''details =[
 ['Polynomial','Identifying Polynomial','instruction',5,[[givQuesAns],] ], 
 ['Polynomial','Multiplying Polynomial','instruction', [[givQuesAns],] ], 

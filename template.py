@@ -51,74 +51,97 @@ def spaces(no_of_spaces):
 
 
 def worksheet(details, filename):
+    for i in range(2):
+        print(i)
+        geometry_options = {
+            "head": "12pt",
+            "margin": "0.4in",
+            "bottom": "0.5in"
+        }
 
-    geometry_options = {
-        "head": "1in",
-        "margin": "0.4in",
-        "bottom": "0.5in"
-    }
+        doc = Document(geometry_options=geometry_options)
 
-    doc = Document(geometry_options=geometry_options)
+        doc.preamble.append(Command('renewcommand', arguments=[
+                            NoEscape('\\thesection'), NoEscape('\Alph{section}')]))
+        doc.preamble.append(Command('renewcommand', arguments=[NoEscape(
+            '\\thesubsection'), NoEscape('\\Alph{subsection}.')]))
 
-    doc.preamble.append(Command('renewcommand', arguments=[
-                        NoEscape('\\thesection'), NoEscape('\Alph{section}')]))
-    doc.preamble.append(Command('renewcommand', arguments=[NoEscape(
-        '\\thesubsection'), NoEscape('\\Alph{subsection}.')]))
+        with doc.create(MiniPage(align='l')):
 
-    with doc.create(MiniPage(align='l')):
+            doc.append(MediumText(
+                'Name ___________________  Student No.___ G__/___ Date: ________Score: ____ '))
+            doc.append(NoEscape(r'\\'))
+            doc.append(MediumText(
+                'Nickname: ___________________   Worksheet No.: _____ '))
+            # doc.append(NoEscape(r' \\ \\'))
 
-        doc.append(MediumText(
-            'Name ___________________  Student No.___ G__/___ Date: ________Score: ____ '))
-        doc.append(NoEscape(r'\\'))
-        doc.append(MediumText(
-            'Nickname: ___________________   Worksheet No.: _____ '))
-        # doc.append(NoEscape(r' \\ \\'))
+        doc.packages.append(Package('ragged2e'))
+        doc.packages.append(Package('multicol'))
 
-    doc.packages.append(Package('ragged2e'))
-    doc.packages.append(Package('multicol'))
+    # loop for worksheet and answer key
 
-    for each in details:
-        '''details =[
-        ['Polynomial','Identifying Polynomial','instruction',5,[[givQuesAns],]],
-        ['Polynomial','Multiplying Polynomial','instruction',5,[[givQuesAns],]]
-        ]
-        '''
+        # loop of each main topic
+        if i == 0:
+            pass
+        else:
+            filename = filename+'anskey'
 
-        # givQuesAns = [ ['given', ['questions',], ['quesANs',] ], ]
-        mainTopic, subTopic, instruction, items, givQuesAns = each
-        # Diplay Centered Topic
-        doc.append(VerticalSpace('5'))
-        doc.append(NoEscape(r'\\'))
-        doc.append(NoEscape(r'\begin{Center}'))
-        doc.append(LargeText(bold(subTopic)))
-        doc.append(NoEscape(r'\end{Center}'))
+        for each in details:
+            '''details =[
+            ['Polynomial','Identifying Polynomial','instruction',5,[[givQues],[givAns]] ],
+            ['Polynomial','Multiplying Polynomial','instruction',5,[[givQuesAns],]]
+            ]
+            '''
 
-        with doc.create(Subsection(NoEscape(instruction))):
+            # givQuesAns = [ ['given', ['questions',], ['quesANs',] ], ]
+            mainTopic, subTopic, instruction, items, givQuesAns = each
+            # Diplay Centered Topic
+            doc.append(VerticalSpace('0.1in'))
+            # doc.append(NoEscape(r'\\'))
+            doc.append(NoEscape(r'\begin{Center}'))
+            doc.append(LargeText(bold(subTopic)))
+            doc.append(NoEscape(r'\end{Center}'))
 
-            with doc.create(Enumerate(enumeration_symbol=r"\arabic*)",
-                                      options={'start': 1})) as enum:
-                doc.append(NoEscape(r'\enlargethispage{\baselineskip}'))
-                doc.append(NoEscape(r'\begin{multicols}{2}'))
-                for item in givQuesAns:
-                    enum.add_item(NoEscape(item[0]))
-                    doc.append(NoEscape(spaces(7)))
-                    for k in item[1]:
-                        doc.append(NoEscape(k))
-                        doc.append(NoEscape(r' \\'))
-                doc.append(NoEscape(r'\end{multicols}'))
+            with doc.create(Subsection(NoEscape(instruction))):
 
-    doc.generate_pdf(filename)  # , clean_tex=False)
+                with doc.create(Enumerate(enumeration_symbol=r"\arabic*)",
+                                          options={'start': 1})) as enum:
+                    doc.append(NoEscape(r'\enlargethispage{\baselineskip}'))
+                    doc.append(NoEscape(r'\begin{multicols}{2}'))
+                    for item in givQuesAns[i]:
+
+                        enum.add_item(NoEscape(item[0]))
+                        doc.append(NoEscape(spaces(7)))
+                        for k in item[1]:
+                            doc.append(NoEscape(k))
+                            doc.append(NoEscape(r' \\'))
+                    doc.append(NoEscape(r'\end{multicols}'))
+            doc.append(NoEscape(r'\newpage'))
+
+        doc.generate_pdf(filename, clean_tex=True)
+        print('end')
 
 
 def main(details):
 
     # checks if the same filename exists in the directory
-    files = os.listdir()
+    files = os.listdir('output')
+
     i = 1
     temp = 'pol'
     while temp+'.pdf' in files:
         temp = 'pol'
         temp += str(i)
         i += 1
-    filename = temp
+    filename = 'output/' + temp
+    # question = details
+    # print(len(question))
+    # print(len(details))
+
+    # question.pop()
+    # print(len(question))
+    # print(len(details))
+
+    # anskey = details.pop(-2)
+    # worksheet(question, filename)
     worksheet(details, filename)

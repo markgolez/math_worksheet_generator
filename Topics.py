@@ -1,18 +1,22 @@
+from topicsVariable import *
+
 mainTopics = {
     'Linear': {},
     'Quadratic': {},
     'Polynomial': {
-        'Identifying Polynomial': 'Write the word POLYNOMIAL if the given equation is a polynomial and write NP if otherwise.',
-        'Adding and Subtracting Polynomial': 'Perform the given operations and give the simpliest form.',
-        'Multiplying Polynomial': 'Perform the given operations and give the simpliest form.',
-        'Dividing Polynomial': 'Perform the given operations and give the simpliest form.',
-        'Evaluating Polynomial': 'Evaluate the given polynomial.',
-        'Remainder Theorem': 'Use remainder theorem to solve for the unknown variable.',
-        'Factor Theorem': 'Use factor theorem to solve for the unknown variable.',
-        "Descarte's Rule of Sign": 'Give the table of possible positive and negative roots of the given polynomial equation.',
-        'Rational Root Theorem': 'Use Rational Root Theorem to solve for the roots of the given polynomial equations.',
-        'Solving Polynomial Equation': 'Solve the given equations.',
-        'Graphing Polynomial': 'Identify the end behavior of the given polynomial equation then grapph it.'
+        Identifying_Polynomial: 'Write the word POLYNOMIAL if the given equation is a polynomial and write NP if otherwise.',
+        Adding_and_Subtracting_Polynomial: 'Perform the given operations and give what is being asked.',
+        Multiplying_Polynomial: 'Perform the given operations and give what is being asked.',
+        Dividing_Polynomial: 'Perform the given operations and give what is being asked.',
+        Factoring_By_Grouping: 'Factor completely the given polynomial expressions.',
+        Factoring_using_Mixed_Methods: 'Factor completely the given polynomial expressions.',
+        Evaluating_Polynomial: 'Evaluate each function at the given value.',
+        Remainder_Theorem: 'Give the remainder of each of the following expressions using remainder theorem.',
+        Factor_Theorem: 'State if the given binomial is a factor of the given polynomial.',
+        Descartes_Rule_of_Sign: 'Give the table of possible positive and negative roots of the given polynomial equation.',
+        Rational_Root_Theorem: 'Use Rational Root Theorem to solve for the roots of the given polynomial equations.',
+        Solving_Polynomial_Equation: 'Solve the given equations.',
+        Graphing_Polynomial: 'Identify the end behavior of the given polynomial equation then grapph it.'
     },
     'Exponential': {},
     'Conic': {
